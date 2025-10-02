@@ -1,0 +1,49 @@
+openapi: 3.0.1
+info:
+  title: Fast Food API
+  version: 1.0.0
+paths:
+  /orders:
+    get:
+      responses:
+        "200":
+          description: OK
+      x-amazon-apigateway-integration:
+        type: http_proxy
+        httpMethod: GET
+        uri: http://${alb_dns}/orders
+        passthroughBehavior: when_no_match
+  /items:
+    get:
+      responses:
+        "200":
+          description: Lista de itens
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations
+
+    post:
+      security:
+        - cognitoAuthorizer: []
+      responses:
+        "201":
+          description: Item criado
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_arn}/invocations
+
+components:
+  securitySchemes:
+    cognitoAuthorizer:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: cognito_user_pools
+      x-amazon-apigateway-authorizer:
+        type: cognito_user_pools
+        providerARNs:
+          - arn:aws:cognito-idp:${region}:${account_id}:userpool/${userpool_id}
