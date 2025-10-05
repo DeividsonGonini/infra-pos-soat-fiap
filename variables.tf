@@ -1,13 +1,5 @@
-# data "terraform_remote_state" "vpc" {
-#   backend = "local"
-
-#   config = {
-#     path = "../../../generated/aws/vpc/terraform.tfstate"
-#   }
-# }
-
 variable "vpc_id" {
-  default = "vpc-05b49e5e880da8cd4"
+  default = "vpc-05ec259f5538bc540"
 }
 
 variable "region" {
