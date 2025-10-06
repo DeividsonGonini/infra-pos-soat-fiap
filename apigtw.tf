@@ -5,8 +5,8 @@ resource "aws_api_gateway_rest_api" "api-gtw" {
   body = templatefile("${path.module}/openapi.yaml", {
     alb_dns       = aws_lb.alb.dns_name,
     region      = var.region,
-    account_id  = var.account_id,
-    # account_id  = data.aws_caller_identity.current.account_id,
+    # account_id  = var.account_id,
+    account_id  = data.aws_caller_identity.current.account_id,
     lambda_arn  = aws_lambda_function.fast_food_lambda.arn,
     userpool_id = aws_cognito_user_pool.cognito.id
     # vpc_link_id   = aws_api_gateway_vpc_link.vpc_link.id

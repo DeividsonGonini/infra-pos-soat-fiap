@@ -13,7 +13,6 @@ paths:
         httpMethod: GET
         uri: http://${alb_dns}/orders
         passthroughBehavior: when_no_match
-
   /autentications:
     get:
       responses:
@@ -23,7 +22,7 @@ paths:
         type: aws_proxy
         httpMethod: POST
         uri:
-          arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:891377152273:function:AuthenticationFunction/invocations
+          arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:085703842775:function:AuthenticationFunction/invocations
   /items:
     get:
       responses:
